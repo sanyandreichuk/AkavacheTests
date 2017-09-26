@@ -1,8 +1,10 @@
-﻿using MvvmHelpers;
+﻿using System;
+using MvvmHelpers;
 using Prism.Mvvm;
 using Prism.Navigation;
 using AkavacheTests.Services;
 using AkavacheTests.Rest.Dtos;
+
 
 
 namespace AkavacheTests.ViewModels
@@ -18,10 +20,9 @@ namespace AkavacheTests.ViewModels
             _photoService = photoService;
         }
 
-        public async void OnNavigatingTo(NavigationParameters parameters)
+        public void OnNavigatingTo(NavigationParameters parameters)
         {
-            var photos = await _photoService.GetPhotosAsync();
-            Photos.ReplaceRange(photos);
+            _photoService.GetPhotos().Subscribe(photos => Photos.ReplaceRange(photos));           
         }
     }
 }
