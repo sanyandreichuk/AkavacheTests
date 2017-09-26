@@ -1,6 +1,9 @@
-﻿using Prism.Unity;
-using AkavacheTests.Views;
+﻿using Microsoft.Practices.Unity;
+using Akavache;
+using Prism.Unity;
 using Xamarin.Forms;
+using AkavacheTests.Views;
+using AkavacheTests.Services;
 
 namespace AkavacheTests
 {
@@ -12,11 +15,15 @@ namespace AkavacheTests
         {
             InitializeComponent();
 
-            NavigationService.NavigateAsync("NavigationPage/MainPage?title=Hello%20from%20Xamarin.Forms");
+            BlobCache.ApplicationName = "AkavacheTests";
+
+            NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
         protected override void RegisterTypes()
         {
+            Container.RegisterType<PhotoService>(new ContainerControlledLifetimeManager());
+
             Container.RegisterTypeForNavigation<NavigationPage>();
             Container.RegisterTypeForNavigation<MainPage>();
         }

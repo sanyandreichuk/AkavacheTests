@@ -1,40 +1,27 @@
-﻿using Prism.Commands;
+﻿using MvvmHelpers;
 using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using AkavacheTests.Services;
+using AkavacheTests.Rest.Dtos;
+
 
 namespace AkavacheTests.ViewModels
 {
-    public class MainPageViewModel : BindableBase, INavigationAware
+    public class MainPageViewModel : BindableBase, INavigatingAware
     {
-        private string _title;
-        public string Title
+        public ObservableRangeCollection<PhotoDto> Photos { get; } = new ObservableRangeCollection<PhotoDto>();
+
+        private PhotoService _photoService;
+
+        public MainPageViewModel(PhotoService photoService)
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            _photoService = photoService;
         }
 
-        public MainPageViewModel()
+        public async void OnNavigatingTo(NavigationParameters parameters)
         {
-
-        }
-
-        public void OnNavigatedFrom(NavigationParameters parameters)
-        {
-
-        }
-
-        public void OnNavigatingTo(NavigationParameters parameters)
-        {
-
-        }
-
-        public void OnNavigatedTo(NavigationParameters parameters)
-        {
-            if (parameters.ContainsKey("title"))
-                Title = (string)parameters["title"] + " and Prism";
+            var photos = await _photoService.GetPhotosAsync();
+            Photos.ReplaceRange(photos);
         }
     }
 }

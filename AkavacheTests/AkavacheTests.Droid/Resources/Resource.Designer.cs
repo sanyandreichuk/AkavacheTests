@@ -26,6 +26,7 @@ namespace AkavacheTests.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Splat.Resource.String.library_name = global::AkavacheTests.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::AkavacheTests.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -3014,6 +3015,9 @@ namespace AkavacheTests.Droid
 			
 			// aapt resource value: 0x7f080025
 			public const int character_counter_pattern = 2131230757;
+			
+			// aapt resource value: 0x7f080026
+			public const int library_name = 2131230758;
 			
 			// aapt resource value: 0x7f080000
 			public const int mr_button_content_description = 2131230720;
